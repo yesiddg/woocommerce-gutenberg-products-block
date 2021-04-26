@@ -16,6 +16,7 @@ import DropdownSelector from '@woocommerce/base-components/dropdown-selector';
 import FilterSubmitButton from '@woocommerce/base-components/filter-submit-button';
 import isShallowEqual from '@wordpress/is-shallow-equal';
 import { decodeEntities } from '@wordpress/html-entities';
+import { FormTokenField } from 'wordpress-components';
 
 /**
  * Internal dependencies
@@ -138,7 +139,8 @@ const AttributeFilterBlock = ( {
 
 				return {
 					value: term.slug,
-					name: decodeEntities( term.name ),
+					name: decodeEntities( term.name ), // to remove
+					title: decodeEntities( term.name ),
 					label: (
 						<Label
 							name={ decodeEntities( term.name ) }
@@ -234,14 +236,15 @@ const AttributeFilterBlock = ( {
 	/**
 	 * When a checkbox in the list changes, update state.
 	 */
-	const onChange = useCallback(
+	const onChangeCheckbox = useCallback(
 		( checkedValue ) => {
 			const getFilterNameFromValue = ( filterValue ) => {
-				const { name } = displayedOptions.find(
+				const selectedOption = displayedOptions.find(
 					( option ) => option.value === filterValue
 				);
-
-				return name;
+				if ( blockAttributes.displayStyle !== 'dropdown' ) {
+					return selectedOption.name;
+				}
 			};
 
 			const announceFilterChange = ( { filterAdded, filterRemoved } ) => {
@@ -313,7 +316,7 @@ const AttributeFilterBlock = ( {
 
 			setChecked( newChecked );
 		},
-		[ checked, displayedOptions, multiple ]
+		[ checked, displayedOptions, multiple, blockAttributes.displayStyle ]
 	);
 
 	if ( displayedOptions.length === 0 && ! attributeTermsLoading ) {
@@ -331,24 +334,60 @@ const AttributeFilterBlock = ( {
 			) }
 			<div className="wc-block-attribute-filter">
 				{ blockAttributes.displayStyle === 'dropdown' ? (
-					<DropdownSelector
-						attributeLabel={ attributeObject.label }
-						checked={ checked }
-						className={ 'wc-block-attribute-filter-dropdown' }
-						inputLabel={ blockAttributes.heading }
-						isLoading={ isLoading }
-						multiple={ multiple }
-						onChange={ onChange }
-						options={ displayedOptions }
-					/>
+					<>
+						{
+							<DropdownSelector
+								attributeLabel={ attributeObject.label }
+								checked={ checked }
+								className={
+									'wc-block-attribute-filter-dropdown'
+								}
+								inputLabel={ blockAttributes.heading }
+								isLoading={ isLoading }
+								multiple={ multiple }
+								onChange={ onChangeCheckbox }
+								options={ displayedOptions }
+							/>
+						}
+
+						<FormTokenField
+							label={ null }
+							value={ checked.map( ( value ) => {
+								return displayedOptions.find(
+									( option ) => option.value === value
+								).name;
+							} ) }
+							className="wc-block-attribute-filter-dropdown"
+							onChange={ ( tokens ) => {
+								const values = tokens.map( ( token ) => {
+									return displayedOptions.find(
+										( option ) => option.name === token
+									).value;
+								} );
+								onChangeCheckbox( values );
+							} }
+							disabled={ isLoading }
+							suggestions={ displayedOptions.map(
+								( option ) => option.name
+							) }
+							placeholder={ sprintf(
+								/* translators: %s attribute name. */
+								__( 'Any %s', 'woo-gutenberg-products-block' ),
+								attributeObject.label
+							) }
+							__experimentalExpandOnFocus
+							__experimentalShowHowTo={ false }
+							maxLength={ multiple ? displayedOptions.length : 1 }
+						/>
+					</>
 				) : (
 					<CheckboxList
 						className={ 'wc-block-attribute-filter-list' }
 						options={ displayedOptions }
 						checked={ checked }
-						onChange={ onChange }
+						onChange={ onChangeCheckbox }
 						isLoading={ isLoading }
-						isDisabled={ isDisabled }
+						isDisabled={ isDisabled } //
 					/>
 				) }
 				{ blockAttributes.showFilterButton && (

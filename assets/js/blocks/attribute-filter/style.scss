@@ -1,12 +1,13 @@
+/* eslint-disable */
 .wc-block-attribute-filter {
 	margin-bottom: $gap-large;
 
 	.wc-block-attribute-filter-list-count {
 		&::before {
-			content: " (";
+			content: ' (';
 		}
 		&::after {
-			content: ")";
+			content: ')';
 		}
 	}
 
@@ -32,11 +33,27 @@
 	}
 
 	.is-single .wc-block-attribute-filter-list-count,
-	.wc-block-dropdown-selector .wc-block-dropdown-selector__list .wc-block-attribute-filter-list-count {
+	.wc-block-dropdown-selector
+		.wc-block-dropdown-selector__list
+		.wc-block-attribute-filter-list-count {
 		opacity: 0.6;
 	}
 
 	.wc-block-attribute-filter__button {
 		margin-top: $gap-smaller;
 	}
+}
+// this should come from wordpress-components
+.components-visually-hidden {
+	border: 0;
+	clip: rect( 1px, 1px, 1px, 1px );
+	-webkit-clip-path: inset( 50% );
+	clip-path: inset( 50% );
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+	word-wrap: normal !important;
 }
