@@ -87,20 +87,24 @@ The word 'Total' that precedes the amount due, present in both the Cart _and_ Ch
 
 There are no additional arguments passed to this filter.
 
-### Coupon names
+### Coupons
 
 The current functionality is to display the coupon codes in the Cart and Checkout sidebars. This could be undesirable
-if you dynamically generate a coupon code that is not user friendly. It may, therefore, be desirable to change the way
-this code is displayed. To do this, the filter `couponName` exists. 
+if you dynamically generate a coupon code that is not user-friendly. It may, therefore, be desirable to change the way
+this code is displayed. To do this, the filter `couponName` exists.
+
+This filter could also be used to show or hide coupons.
+
+This filter must _not_ be used to alter the value/totals of a coupon. This will not carry through to the Cart totals.
 
 | Filter name  | Description | Return type  |
 |---|---|---|
-| `couponName`  | This is the coupon code of a coupon currently applied to the cart. Its value will be the same as the code the customer entered to apply the discount. | `string`
+| `coupons`  | This is an array of coupons currently applied to the cart. | `CartCoupon[]`
 
-The additional argument supplied to this filter is: `{ context: 'summary', coupon: CartCoupon }`. A `CartCoupon` has the following shape:
+The additional argument supplied to this filter is: `{ context: 'summary' }`. A `CartCoupon` has the following shape:
 
 ```typescript
-interface CartCoupon {
+CartCoupon {
   code: string
   discount_type: string
   totals: {
@@ -114,6 +118,32 @@ interface CartCoupon {
     total_discount: string
     total_discount_tax: string
   }
+}
+```
+### Snackbar notices
+
+There is a snackbar at the bottom of the page used to display notices to the customer, it looks like this:
+
+<img src="https://user-images.githubusercontent.com/5656702/120882329-d573c100-c5ce-11eb-901b-d7f206f74a66.png" width=300 />
+
+It may be desirable to hide this (by removing it from the array) or to change the text in the notice.
+
+| Filter name  | Description | Return type  |
+|---|---|---|
+| `snackbarNotices`  | An array of notices waiting to be shown in the snackbar | `SnackbarNotice[]`
+
+These are the relevant members of a `SnackbarNotice` object.
+
+```typescript
+SnackbarNotice {
+  content: string;
+  explicitDismiss: boolean;
+  icon: string | null;
+  isDismissable: boolean;
+  onDismiss: Function;
+  spokenMessage: string;
+  status: string;
+  type: string
 }
 ```
 
