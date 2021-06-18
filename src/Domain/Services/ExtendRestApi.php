@@ -6,6 +6,7 @@ use Automattic\WooCommerce\Blocks\StoreApi\Routes\RouteException;
 use Automattic\WooCommerce\Blocks\StoreApi\Schemas\CartExtensionsSchema;
 use Automattic\WooCommerce\Blocks\StoreApi\Schemas\CartItemSchema;
 use Automattic\WooCommerce\Blocks\StoreApi\Schemas\CartSchema;
+use Automattic\WooCommerce\Blocks\StoreApi\Schemas\CheckoutSchema;
 use Automattic\WooCommerce\Blocks\StoreApi\Formatters;
 use Throwable;
 use Exception;
@@ -54,7 +55,7 @@ final class ExtendRestApi {
 	 *
 	 * @var array
 	 */
-	private $endpoints = [ CartItemSchema::IDENTIFIER, CartSchema::IDENTIFIER ];
+	private $endpoints = [ CartItemSchema::IDENTIFIER, CartSchema::IDENTIFIER, CheckoutSchema::IDENTIFIER ];
 
 	/**
 	 * Data to be extended

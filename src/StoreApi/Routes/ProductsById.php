@@ -13,7 +13,7 @@ class ProductsById extends AbstractRoute {
 	 * @return string
 	 */
 	public function get_path() {
-		return '/products/(?P<id>[\d]+)';
+		return '/products/(?P<slug>[\w-]+)';
 	}
 
 	/**
@@ -24,9 +24,9 @@ class ProductsById extends AbstractRoute {
 	public function get_args() {
 		return [
 			'args'   => array(
-				'id' => array(
+				'string' => array(
 					'description' => __( 'Unique identifier for the resource.', 'woo-gutenberg-products-block' ),
-					'type'        => 'integer',
+					'type'        => 'string',
 				),
 			),
 			[
@@ -53,12 +53,14 @@ class ProductsById extends AbstractRoute {
 	 * @return \WP_REST_Response
 	 */
 	protected function get_route_response( \WP_REST_Request $request ) {
-		$object = wc_get_product( (int) $request['id'] );
+		$object = get_page_by_path( $request['slug'], OBJECT, 'product' );
 
-		if ( ! $object || 0 === $object->get_id() ) {
+		if ( ! $object || 0 === $object->ID ) {
 			throw new RouteException( 'woocommerce_rest_product_invalid_id', __( 'Invalid product ID.', 'woo-gutenberg-products-block' ), 404 );
 		}
-
+		if ( ! $object instanceof WC_Product ) {
+			$object = wc_get_product( $object->ID );
+		}
 		return rest_ensure_response( $this->schema->get_item_response( $object ) );
 	}
 }

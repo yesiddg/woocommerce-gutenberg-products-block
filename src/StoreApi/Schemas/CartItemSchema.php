@@ -44,6 +44,12 @@ class CartItemSchema extends ProductSchema {
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
 			],
+			'slug'                   => [
+				'description' => __( 'The cart item product slug.', 'woo-gutenberg-products-block' ),
+				'type'        => 'string',
+				'context'     => [ 'view', 'edit' ],
+				'readonly'    => true,
+			],
 			'quantity'             => [
 				'description' => __( 'Quantity of this item in the cart.', 'woo-gutenberg-products-block' ),
 				'type'        => 'integer',
@@ -311,6 +317,7 @@ class CartItemSchema extends ProductSchema {
 		return [
 			'key'                  => $cart_item['key'],
 			'id'                   => $product->get_id(),
+			'slug'                 => $product->get_slug(),
 			'quantity'             => wc_stock_amount( $cart_item['quantity'] ),
 			'quantity_limit'       => $this->get_product_quantity_limit( $product ),
 			'name'                 => $this->prepare_html_response( $product->get_title() ),

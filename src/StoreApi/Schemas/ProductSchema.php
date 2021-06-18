@@ -56,6 +56,12 @@ class ProductSchema extends AbstractSchema {
 				'context'     => [ 'view', 'edit' ],
 				'readonly'    => true,
 			],
+			'slug'                  => [
+				'description' => __( 'Product slug.', 'woo-gutenberg-products-block' ),
+				'type'        => 'string',
+				'context'     => [ 'view', 'edit' ],
+				'readonly'    => true,
+			],
 			'name'                => [
 				'description' => __( 'Product name.', 'woo-gutenberg-products-block' ),
 				'type'        => 'string',
@@ -428,8 +434,10 @@ class ProductSchema extends AbstractSchema {
 	 * @return array
 	 */
 	public function get_item_response( $product ) {
+
 		return [
 			'id'                  => $product->get_id(),
+			'slug'                => $product->get_slug(),
 			'name'                => $this->prepare_html_response( $product->get_title() ),
 			'parent'              => $product->get_parent_id(),
 			'type'                => $product->get_type(),
