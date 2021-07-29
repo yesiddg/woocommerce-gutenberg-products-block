@@ -1,21 +1,18 @@
 /**
  * External dependencies
  */
-import { getSetting } from '@woocommerce/settings';
+import { __ } from '@wordpress/i18n';
+import { renderFrontend } from '@woocommerce/base-utils';
+import { useStoreCart } from '@woocommerce/base-context/hooks';
+import {
+	withStoreCartApiHydration,
+	withRestApiHydration,
+} from '@woocommerce/block-hocs';
 
 /**
  * Internal dependencies
  */
-import preloadScript from './preload-script';
-import lazyLoadScript from './lazy-load-script';
-
-interface dependencyData {
-	src: string;
-	version?: string;
-	after?: string;
-	before?: string;
-	translations?: string;
-}
+import CartLineItemsTable from '../cart-checkout/cart/full-cart/cart-line-items-table';
 
 // eslint-disable-next-line @wordpress/no-global-event-listener
 window.onload = () => {
@@ -23,20 +20,6 @@ window.onload = () => {
 
 	if ( miniCartBlocks.length === 0 ) {
 		return;
-	}
-
-	const dependencies = getSetting(
-		'mini_cart_block_frontend_dependencies',
-		{}
-	) as Record< string, dependencyData >;
-
-	// Preload scripts
-	for ( const dependencyHandle in dependencies ) {
-		const dependency = dependencies[ dependencyHandle ];
-		preloadScript( {
-			handle: dependencyHandle,
-			...dependency,
-		} );
 	}
 
 	miniCartBlocks.forEach( ( miniCartBlock ) => {
@@ -54,15 +37,34 @@ window.onload = () => {
 
 		const showContents = async () => {
 			miniCartContents.removeAttribute( 'hidden' );
+			const MiniCartContents = () => {
+				const { cartItems, cartIsLoading } = useStoreCart();
 
-			// Load scripts
-			for ( const dependencyHandle in dependencies ) {
-				const dependency = dependencies[ dependencyHandle ];
-				await lazyLoadScript( {
-					handle: dependencyHandle,
-					...dependency,
-				} );
-			}
+				if ( cartItems.length === 0 ) {
+					return (
+						<>
+							{ __(
+								'Cart is empty',
+								'woo-gutenberg-products-block'
+							) }
+						</>
+					);
+				}
+
+				return (
+					<CartLineItemsTable
+						lineItems={ cartItems }
+						isLoading={ cartIsLoading }
+					/>
+				);
+			};
+
+			renderFrontend( {
+				selector: '.wc-blocks-mini-cart-contents',
+				Block: withStoreCartApiHydration(
+					withRestApiHydration( MiniCartContents )
+				),
+			} );
 		};
 		const hideContents = () =>
 			miniCartContents.setAttribute( 'hidden', 'true' );

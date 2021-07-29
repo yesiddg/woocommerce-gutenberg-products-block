@@ -72,33 +72,6 @@ class MiniCart extends AbstractBlock {
 			$this->hydrate_from_api();
 		}
 
-		$script_data = $this->asset_api->get_script_data( 'build/mini-cart-component-frontend.js' );
-
-		$num_dependencies = count( $script_data['dependencies'] );
-		$wp_scripts       = wp_scripts();
-
-		for ( $i = 0; $i < $num_dependencies; $i++ ) {
-			$dependency = $script_data['dependencies'][ $i ];
-
-			foreach ( $wp_scripts->registered as $script ) {
-				if ( $script->handle === $dependency ) {
-					$this->append_script_and_deps_src( $script );
-					break;
-				}
-			}
-		}
-
-		$this->scripts_to_lazy_load['wc-blocks-mini-cart-component-frontend'] = array(
-			'src'     => $script_data['src'],
-			'version' => $script_data['version'],
-		);
-
-		$this->asset_data_registry->add(
-			'mini_cart_block_frontend_dependencies',
-			$this->scripts_to_lazy_load,
-			true
-		);
-
 		do_action( 'woocommerce_blocks_cart_enqueue_data' );
 	}
 

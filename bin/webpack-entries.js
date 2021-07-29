@@ -125,8 +125,6 @@ const entries = {
 	frontend: {
 		reviews: './assets/js/blocks/reviews/frontend.js',
 		...getBlockEntries( 'frontend.{t,j}s{,x}' ),
-		'mini-cart-component':
-			'./assets/js/blocks/mini-cart/component-frontend.tsx',
 	},
 	payments: {
 		'wc-payment-method-stripe':
