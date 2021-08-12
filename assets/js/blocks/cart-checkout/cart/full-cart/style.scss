@@ -32,12 +32,6 @@ table.wc-block-cart-items {
 		@include font-size(smaller);
 		text-transform: uppercase;
 
-		.wc-block-cart-items__header-image {
-			width: 100px;
-		}
-		.wc-block-cart-items__header-product {
-			visibility: hidden;
-		}
 		.wc-block-cart-items__header-total {
 			width: 100px;
 			text-align: right;
@@ -247,6 +241,9 @@ table.wc-block-cart-items {
 		}
 		td:last-child {
 			padding-right: $gap;
+		}
+		.wc-block-cart-item__image {
+			width: 100px;
 		}
 	}
 

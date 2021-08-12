@@ -174,8 +174,7 @@ class Cart extends AbstractBlock {
 					<table class="wc-block-cart-items">
 						<thead>
 							<tr class="wc-block-cart-items__header">
-								<th class="wc-block-cart-items__header-image"><span /></th>
-								<th class="wc-block-cart-items__header-product"><span /></th>
+								<th class="wc-block-cart-items__header-product" colspan="2"><span /></th>
 								<th class="wc-block-cart-items__header-total"><span /></th>
 							</tr>
 						</thead>

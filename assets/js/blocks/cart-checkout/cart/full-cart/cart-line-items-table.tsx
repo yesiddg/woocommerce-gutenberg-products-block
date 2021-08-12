@@ -37,14 +37,12 @@ const CartLineItemsTable = ( {
 		<table className="wc-block-cart-items">
 			<thead>
 				<tr className="wc-block-cart-items__header">
-					<th className="wc-block-cart-items__header-image">
+					<th
+						className="wc-block-cart-items__header-product"
+						colSpan={ 2 }
+					>
 						<span>
 							{ __( 'Product', 'woo-gutenberg-products-block' ) }
-						</span>
-					</th>
-					<th className="wc-block-cart-items__header-product">
-						<span>
-							{ __( 'Details', 'woo-gutenberg-products-block' ) }
 						</span>
 					</th>
 					<th className="wc-block-cart-items__header-total">
