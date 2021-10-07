@@ -69,6 +69,7 @@
 		"test:watch": "npm run test -- --watch",
 		"ts:check": "tsc --build",
 		"wp-env": "wp-env",
+	  "create-extension": "node ./bin/starter-pack/starter-pack.js",
 		"wp-env:config": "./bin/wp-env-pre-config.sh",
 		"wp-env:phpunit-config": "./bin/wp-env-phpunit-pre-config.sh"
 	},
