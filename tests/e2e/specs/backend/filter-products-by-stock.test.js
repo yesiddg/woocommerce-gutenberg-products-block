@@ -9,7 +9,6 @@ import { findLabelWithText } from '../../../utils';
  */
 import {
 	switchUserToAdmin,
-	clickButton,
 	getAllBlocks,
 	openDocumentSettingsSidebar,
 } from '@wordpress/e2e-test-utils';

@@ -120,7 +120,6 @@ describe( `${ block.name } Block (frontend)`, () => {
 
 	it( 'should display an empty cart message when cart is empty', async () => {
 		await shopper.goToCheckoutBlock();
-		const html = await page.content();
 
 		await page.waitForSelector( 'h1', { text: 'Checkout block' } );
 		await page.waitForSelector( 'strong', { text: 'Your cart is empty!' } );
