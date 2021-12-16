@@ -67,7 +67,7 @@
             "file": "BlockTypes/LegacyTemplate.php",
             "type": "action",
             "doc": {
-                "description": "Hook: woocommerce_after_main_content.",
+                "description": "Woocommerce_after_main_content hook.",
                 "long_description": "",
                 "tags": [
                     {
@@ -84,7 +84,7 @@
             "file": "BlockTypes/LegacyTemplate.php",
             "type": "action",
             "doc": {
-                "description": "Woocommerce_after_main_content hook.",
+                "description": "Hook: woocommerce_after_main_content.",
                 "long_description": "",
                 "tags": [
                     {
@@ -228,7 +228,7 @@
         },
         {
             "name": "woocommerce_blocks_cart_enqueue_data",
-            "file": "BlockTypes/Cart.php",
+            "file": "BlockTypes/MiniCart.php",
             "type": "action",
             "doc": {
                 "description": "Fires after cart block data is registered.",
@@ -240,7 +240,7 @@
         },
         {
             "name": "woocommerce_blocks_cart_enqueue_data",
-            "file": "BlockTypes/MiniCart.php",
+            "file": "BlockTypes/Cart.php",
             "type": "action",
             "doc": {
                 "description": "Fires after cart block data is registered.",

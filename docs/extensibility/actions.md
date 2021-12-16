@@ -75,7 +75,7 @@ File: [StoreApi/Utilities/CartController.php](../src/StoreApi/Utilities/CartCont
 ## woocommerce_after_main_content
 
 
-Hook: woocommerce_after_main_content.
+Woocommerce_after_main_content hook.
 
 ```php
 do_action( 'woocommerce_after_main_content' )
@@ -91,7 +91,7 @@ File: [BlockTypes/LegacyTemplate.php](../src/BlockTypes/LegacyTemplate.php)
 ## woocommerce_after_main_content
 
 
-Woocommerce_after_main_content hook.
+Hook: woocommerce_after_main_content.
 
 ```php
 do_action( 'woocommerce_after_main_content' )
@@ -218,7 +218,7 @@ do_action( 'woocommerce_blocks_cart_enqueue_data' )
 ### Source
 
 
-File: [BlockTypes/Cart.php](../src/BlockTypes/Cart.php)
+File: [BlockTypes/MiniCart.php](../src/BlockTypes/MiniCart.php)
 
 ---
 
@@ -234,7 +234,7 @@ do_action( 'woocommerce_blocks_cart_enqueue_data' )
 ### Source
 
 
-File: [BlockTypes/MiniCart.php](../src/BlockTypes/MiniCart.php)
+File: [BlockTypes/Cart.php](../src/BlockTypes/Cart.php)
 
 ---
 

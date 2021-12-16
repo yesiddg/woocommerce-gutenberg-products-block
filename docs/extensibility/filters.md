@@ -810,7 +810,7 @@ apply_filters( 'woocommerce_store_api_product_quantity_limit', integer $quantity
 ### Source
 
 
-File: [StoreApi/Schemas/ProductSchema.php](../src/StoreApi/Schemas/ProductSchema.php)
+File: [StoreApi/Utilities/QuantityLimits.php](../src/StoreApi/Utilities/QuantityLimits.php)
 
 ---
 
