@@ -32,9 +32,8 @@
  - [woocommerce_shipping_package_name](#woocommerce_shipping_package_name)
  - [woocommerce_show_page_title](#woocommerce_show_page_title)
  - [woocommerce_store_api_disable_nonce_check](#woocommerce_store_api_disable_nonce_check)
- - [woocommerce_store_api_item_quantity_minimum](#woocommerce_store_api_item_quantity_minimum)
- - [woocommerce_store_api_item_quantity_step](#woocommerce_store_api_item_quantity_step)
  - [woocommerce_store_api_product_quantity_limit](#woocommerce_store_api_product_quantity_limit)
+ - [woocommerce_store_api_{$type}_quantity_{$value_type}](#woocommerce_store_api_-type-_quantity_-value_type)
  - [woocommerce_variation_option_name](#woocommerce_variation_option_name)
 
 ---
@@ -783,60 +782,6 @@ File: [StoreApi/Routes/AbstractCartRoute.php](../src/StoreApi/Routes/AbstractCar
 
 ---
 
-## woocommerce_store_api_item_quantity_minimum
-
-
-Filters the quantity minimum for a cart item in Store API.
-
-```php
-apply_filters( 'woocommerce_store_api_item_quantity_minimum', array $cart_item )
-```
-
-### Parameters
-
-| Argument | Type | Description |
-| -------- | ---- | ----------- |
-| $cart_item | array | Cart item array. |
-
-### Returns
-
-
-`\Automattic\WooCommerce\Blocks\StoreApi\Schemas\number` 
-
-### Source
-
-
-File: [StoreApi/Schemas/CartItemSchema.php](../src/StoreApi/Schemas/CartItemSchema.php)
-
----
-
-## woocommerce_store_api_item_quantity_step
-
-
-Filters the quantity increment for a cart item in Store API.
-
-```php
-apply_filters( 'woocommerce_store_api_item_quantity_step', array $cart_item )
-```
-
-### Parameters
-
-| Argument | Type | Description |
-| -------- | ---- | ----------- |
-| $cart_item | array | Cart item array. |
-
-### Returns
-
-
-`\Automattic\WooCommerce\Blocks\StoreApi\Schemas\number` 
-
-### Source
-
-
-File: [StoreApi/Schemas/CartItemSchema.php](../src/StoreApi/Schemas/CartItemSchema.php)
-
----
-
 ## woocommerce_store_api_product_quantity_limit
 
 
@@ -866,6 +811,38 @@ apply_filters( 'woocommerce_store_api_product_quantity_limit', integer $quantity
 
 
 File: [StoreApi/Schemas/ProductSchema.php](../src/StoreApi/Schemas/ProductSchema.php)
+
+---
+
+## woocommerce_store_api_{$type}_quantity_{$value_type}
+
+
+Filters the quantity minimum for a cart item in Store API. This allows extensions to control the minimum qty of items already within the cart.
+
+```php
+apply_filters( 'woocommerce_store_api_{$type}_quantity_{$value_type}', integer $minimum, array $cart_item_or_product )
+```
+
+### Description
+
+<p>Hook name will reflect the product or cart item depending on what is provided, so either:</p> <ul> <li>woocommerce_store_api_product_quantity_minimum</li> <li>woocommerce_store_api_cart_item_quantity_minimum</li> </ul>
+
+### Parameters
+
+| Argument | Type | Description |
+| -------- | ---- | ----------- |
+| $minimum | integer | Minimum qty which defaults to 1. |
+| $cart_item_or_product | array | Product or cart item being added/updated in the cart. |
+
+### Returns
+
+
+`integer` 
+
+### Source
+
+
+File: [StoreApi/Utilities/QuantityLimits.php](../src/StoreApi/Utilities/QuantityLimits.php)
 
 ---
 
