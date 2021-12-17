@@ -33,7 +33,7 @@
  - [woocommerce_show_page_title](#woocommerce_show_page_title)
  - [woocommerce_store_api_disable_nonce_check](#woocommerce_store_api_disable_nonce_check)
  - [woocommerce_store_api_product_quantity_limit](#woocommerce_store_api_product_quantity_limit)
- - [woocommerce_store_api_{$type}_quantity_{$value_type}](#woocommerce_store_api_-type-_quantity_-value_type)
+ - [woocommerce_store_api_product_quantity_{$value_type}](#woocommerce_store_api_product_quantity_-value_type)
  - [woocommerce_variation_option_name](#woocommerce_variation_option_name)
 
 ---
@@ -814,30 +814,31 @@ File: [StoreApi/Utilities/QuantityLimits.php](../src/StoreApi/Utilities/Quantity
 
 ---
 
-## woocommerce_store_api_{$type}_quantity_{$value_type}
+## woocommerce_store_api_product_quantity_{$value_type}
 
 
 Filters the quantity minimum for a cart item in Store API. This allows extensions to control the minimum qty of items already within the cart.
 
 ```php
-apply_filters( 'woocommerce_store_api_{$type}_quantity_{$value_type}', integer $minimum, array $cart_item_or_product )
+apply_filters( 'woocommerce_store_api_product_quantity_{$value_type}', mixed $value, \WC_Product $product, array|null $cart_item )
 ```
 
 ### Description
 
-<p>Hook name will reflect the product or cart item depending on what is provided, so either:</p> <ul> <li>woocommerce_store_api_product_quantity_minimum</li> <li>woocommerce_store_api_cart_item_quantity_minimum</li> </ul>
+<p>The suffix of the hook will vary depending on the value being filtered. For example, minimum, maximum, multiple_of, editable.</p>
 
 ### Parameters
 
 | Argument | Type | Description |
 | -------- | ---- | ----------- |
-| $minimum | integer | Minimum qty which defaults to 1. |
-| $cart_item_or_product | array | Product or cart item being added/updated in the cart. |
+| $value | mixed | The value being filtered. |
+| $product | \WC_Product | The product object. |
+| $cart_item | array, null | The cart item if the product exists in the cart, or null. |
 
 ### Returns
 
 
-`integer` 
+`mixed` 
 
 ### Source
 

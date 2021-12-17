@@ -939,40 +939,49 @@
             "args": 2
         },
         {
-            "name": "woocommerce_store_api_{$type}_quantity_{$value_type}",
+            "name": "woocommerce_store_api_product_quantity_{$value_type}",
             "file": "StoreApi/Utilities/QuantityLimits.php",
             "type": "filter",
             "doc": {
                 "description": "Filters the quantity minimum for a cart item in Store API. This allows extensions to control the minimum qty of items already within the cart.",
-                "long_description": "Hook name will reflect the product or cart item depending on what is provided, so either:  - woocommerce_store_api_product_quantity_minimum  - woocommerce_store_api_cart_item_quantity_minimum",
+                "long_description": "The suffix of the hook will vary depending on the value being filtered. For example, minimum, maximum, multiple_of, editable.",
                 "tags": [
                     {
                         "name": "param",
-                        "content": "Minimum qty which defaults to 1.",
+                        "content": "The value being filtered.",
                         "types": [
-                            "integer"
+                            "mixed"
                         ],
-                        "variable": "$minimum"
+                        "variable": "$value"
                     },
                     {
                         "name": "param",
-                        "content": "Product or cart item being added/updated in the cart.",
+                        "content": "The product object.",
                         "types": [
-                            "array"
+                            "\\WC_Product"
                         ],
-                        "variable": "$cart_item_or_product"
+                        "variable": "$product"
+                    },
+                    {
+                        "name": "param",
+                        "content": "The cart item if the product exists in the cart, or null.",
+                        "types": [
+                            "array",
+                            "null"
+                        ],
+                        "variable": "$cart_item"
                     },
                     {
                         "name": "return",
                         "content": "",
                         "types": [
-                            "integer"
+                            "mixed"
                         ]
                     }
                 ],
-                "long_description_html": "<p>Hook name will reflect the product or cart item depending on what is provided, so either:</p> <ul> <li>woocommerce_store_api_product_quantity_minimum</li> <li>woocommerce_store_api_cart_item_quantity_minimum</li> </ul>"
+                "long_description_html": "<p>The suffix of the hook will vary depending on the value being filtered. For example, minimum, maximum, multiple_of, editable.</p>"
             },
-            "args": 2
+            "args": 3
         },
         {
             "name": "woocommerce_variation_option_name",
