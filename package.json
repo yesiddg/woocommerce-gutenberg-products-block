@@ -209,7 +209,7 @@
 		"downshift": "6.1.7",
 		"github-label-sync": "2.0.2",
 		"html-react-parser": "0.14.3",
-		"react-number-format": "4.4.3",
+		"react-number-format": "4.9.0",
 		"reakit": "1.3.11",
 		"snakecase-keys": "^5.1.2",
 		"trim-html": "0.1.9",
